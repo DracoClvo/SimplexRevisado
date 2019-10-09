@@ -1,2 +1,2 @@
-# DosFacesIO
-Este repositorio tiene los archivos de un método del que desconozco el método y el codigo de "dos Faces" 
+# Simplex Revisado
+Este repositorio  estan los archivos para ejecutar simplex revisado en matlab 
