@@ -37,7 +37,8 @@ function simplexR()
         [Min_out Ind_out] = min(divX);
         fprintf('sale X%d\n',XB(Ind_out));
         q=Ind_out
-        
+        E = CreaE(tp,q,p)
+        B1 = E * B1
         XB(Ind_out)= Ind_in;
         %B(:,Ind_out) = A(:,Ind_in)
     end
