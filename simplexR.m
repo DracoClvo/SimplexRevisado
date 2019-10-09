@@ -11,8 +11,8 @@ function simplexR()
     B1=B;
     ln = size(A,2);
     C = [Z zeros(1,ln - size(Z,2))];
-    XB=[size(a,2)+1:ln];
-    
+    XB=transpose([size(a,2)+1:ln]);
+     
     terminar = false;
     
     while ~terminar
@@ -29,20 +29,24 @@ function simplexR()
             terminar = true;
         end
         %--------------------------------
-        fprintf('entra X%d\n',Ind_in);
-        p=Ind_in
         B1b = B1 * b;
-        tp = B1 * A(:,Ind_in); %tp = B1ai
-        divX = DivX(B1b,tp);
-        [Min_out Ind_out] = min(divX);
-        fprintf('sale X%d\n',XB(Ind_out));
-        q=Ind_out
-        E = CreaE(tp,q,p)
-        B1 = E * B1
-        XB(Ind_out)= Ind_in;
-        %B(:,Ind_out) = A(:,Ind_in)
+        if ~terminar
+            fprintf('entra X%d\n',Ind_in);
+            p=Ind_in
+            tp = B1 * A(:,Ind_in); %tp = B1ai
+            divX = DivX(B1b,tp);
+            [Min_out Ind_out] = min(divX);
+            fprintf('sale X%d\n',XB(Ind_out));
+            q=Ind_out
+            E = CreaE(tp,q,p)
+            B1 = E * B1
+            XB(Ind_out)= Ind_in;
+            %B(:,Ind_out) = A(:,Ind_in)
+        end
     end
     
     %Solucion de Z
     Zt= CBt * B1b
+    XB
+    CBt
 end
