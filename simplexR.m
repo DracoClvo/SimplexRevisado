@@ -1,22 +1,23 @@
 function simplexR()
     clc;
     %Inicializacion
-    Z=input('Z = '); %[-300 -400]; %Se define A como funcion objetivo
-    a=input('coeficientes = '); %[ 3 3 ;3 6];     %Se define B como restricciones 
-    b=input('b = '); %[ 120; 180];       %Se define C como recursos
+    Z=input('Z = '); %[-300 -400]; %Se uncion objetivo
+    a=input('coeficientes = '); %[ 3 3 ;3 6];     % restricciones 
+    b=input('b = '); %[ 120; 180];       %Se define como recursos
     sizea = size(a,1);
     B = eye(sizea);
     A=[a eye(sizea)];
+    
+    B1=B;
     ln = size(A,2);
     C = [Z zeros(1,ln - size(Z,2))];
-    BCol=[size(a,2)+1:ln];
+    XB=[size(a,2)+1:ln];
     
     terminar = false;
     
     while ~terminar
         %iteracion 
-        CBt = C(BCol(:));
-        B1 = inv(B);
+        CBt = C(XB(:));
         CBtB1 = CBt * B1;
         for i=1:ln
             Zi_Ci(i) = CBtB1 * A(:,i) - C(i);
@@ -29,17 +30,17 @@ function simplexR()
         end
         %--------------------------------
         fprintf('entra X%d\n',Ind_in);
+        p=Ind_in
         B1b = B1 * b;
-        B1ai = B1 * A(:,Ind_in);
-        divX = DivX(B1b,B1ai);
+        tp = B1 * A(:,Ind_in); %tp = B1ai
+        divX = DivX(B1b,tp);
         [Min_out Ind_out] = min(divX);
-
-        fprintf('sale X%d\n',BCol(Ind_out));
-        BCol(Ind_out)= Ind_in;
-        B(:,Ind_out) = A(:,Ind_in)
+        fprintf('sale X%d\n',XB(Ind_out));
+        q=Ind_out
+        
+        XB(Ind_out)= Ind_in;
+        %B(:,Ind_out) = A(:,Ind_in)
     end
-    
-    
     
     %Solucion de Z
     Zt= CBt * B1b
