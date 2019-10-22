@@ -7,5 +7,5 @@ function E = CreaE(tp,q,p)
             sus(i) = - tp(i) / tp(q);
         end
     end
-    E(:,p) = sus;
+    E(:,q) = sus;
 end
